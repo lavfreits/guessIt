@@ -32,17 +32,20 @@ import com.example.guessit.databinding.ScoreFragmentBinding
  */
 class ScoreFragment : Fragment() {
 
-    private val scoreFragmentArgs by navArgs()
+    private val scoreFragmentArgs :ScoreFragmentArgs  by navArgs()
+
+    private var _binding: ScoreFragmentBinding? = null
+    private val binding get() = _binding!!
 
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // Inflate view and obtain an instance of the binding class.
-        val binding: ScoreFragmentBinding = DataBindingUtil.inflate(
+        _binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.score_fragment,
                 container,
@@ -50,13 +53,19 @@ class ScoreFragment : Fragment() {
         )
 
         // Get args using by navArgs property delegate
-        binding.scoreText.text = scoreFragmentArgs.score.toString()
-        binding.playAgainButton.setOnClickListener { onPlayAgain() }
+
 
         return binding.root
     }
 
     private fun onPlayAgain() {
         findNavController().navigate(ScoreFragmentDirections.actionRestart())
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.scoreText.text = scoreFragmentArgs.score.toString()
+        binding.playAgainButton.setOnClickListener { onPlayAgain() }
     }
 }

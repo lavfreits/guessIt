@@ -24,6 +24,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.guessit.R
+import com.example.guessit.databinding.ScoreFragmentBinding
 import com.example.guessit.databinding.TitleFragmentBinding
 
 /**
@@ -31,15 +32,25 @@ import com.example.guessit.databinding.TitleFragmentBinding
  */
 class TitleFragment : Fragment() {
 
+
+    private var _binding: TitleFragmentBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        val binding: TitleFragmentBinding = DataBindingUtil.inflate(
+        _binding = DataBindingUtil.inflate(
                 inflater, R.layout.title_fragment, container, false)
+
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.playGameButton.setOnClickListener {
             findNavController().navigate(TitleFragmentDirections.actionTitleToGame())
         }
-        return binding.root
     }
 }

@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.example.guessit.R
 import com.example.guessit.databinding.GameFragmentBinding
+import com.example.guessit.databinding.ScoreFragmentBinding
 
 /**
  * Fragment where the game is played
@@ -35,24 +36,30 @@ class GameFragment : Fragment() {
 
     private lateinit var viewModel: GameViewModel
 
+    private var _binding: GameFragmentBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var binding: GameFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         // Inflate view and obtain an instance of the binding class
-        binding = DataBindingUtil.inflate(
+        _binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.game_fragment,
                 container,
                 false
         )
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        super.onViewCreated(view, savedInstanceState)
+
         Log.i("GameFragment", "Called ViewModelProvider.get")
         viewModel = ViewModelProvider(this)[GameViewModel::class.java]
-
-
 
         binding.correctButton.setOnClickListener {
             viewModel.onCorrect()
@@ -66,10 +73,7 @@ class GameFragment : Fragment() {
         }
         updateScoreText()
         updateWordText()
-        return binding.root
-
     }
-
 
     /**
      * Called when the game is finished
@@ -78,14 +82,11 @@ class GameFragment : Fragment() {
 
         val action = GameFragmentDirections.actionGameToScore(viewModel.score)
 
-        action.setStore(viewModel.score)
+
+
         findNavController(this).navigate(action)
+
     }
-
-
-
-
-
 
     /** Methods for updating the UI **/
 

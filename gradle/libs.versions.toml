@@ -13,8 +13,8 @@ constraintlayout = "2.1.4"
 databindingRuntime = "8.7.2"
 navigationFragmentKtx = "2.8.4"
 navigationUiKtx = "2.8.4"
-navigationFragment = "2.8.2"
-navigationSafeArgsGradlePluginVersion = "2.8.0"
+navigationFragment = "2.8.4"
+navigationSafeArgsGradlePluginVersion = "2.8.4"
 
 
 [libraries]
